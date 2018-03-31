@@ -1,0 +1,12 @@
+.play {
+  @extend %btn;
+  margin: 10rem auto 0;
+  background: linear-gradient(90deg, $color-blue, $light-blue);
+  color: $white;
+  padding: 1rem 5rem;
+  transition: all 0.55s ease-in;
+
+  &:hover {
+    background: linear-gradient(135deg, $color-blue, $violet-blue 90%);
+  }
+}

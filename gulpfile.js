@@ -9,7 +9,7 @@ var uglify = require('gulp-uglify');
 var babel = require('gulp-babel');
 
 
-gulp.task('serve', ['default'], () => {
+gulp.task('serve', ['style'], () => {
   gulp.watch('scss/**/*.scss', ['style']);
   gulp.watch('*.html').on('change', browserSync.reload);
 

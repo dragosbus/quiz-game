@@ -1,0 +1,15 @@
+.categories {
+  width: 100%;
+  text-align: center;
+  padding: 2rem 0;
+
+  &--select {
+    height: 4rem;
+    width: 20rem;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    border: 1px solid rgba($black, 0.1);
+    outline: none;
+    color: rgba($black, 0.8);
+  }
+}

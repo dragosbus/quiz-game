@@ -1,21 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Quiz game</title>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="dist/css/style.css">
 </head>
+
 <body>
-  <header>
-
-  </header>
   <main>
+    <section id="intro-page">
+      <div class="card">
+        <h1>Start Quiz Game</h1>
+      </div>
+      <div class="categories">
+        <select class="categories--select">
+          <option value="all">Select a Category</option>
+        </select>
+      </div>
+      <div class="difficulties">
+        <ul>
+          <li>
+            <input type="radio" id="f-option" name="selector" value="easy">
+            <label for="f-option">Easy</label>
 
+            <div class="check"></div>
+          </li>
+
+          <li>
+            <input type="radio" id="s-option" name="selector" value="medium">
+            <label for="s-option">Medium</label>
+
+            <div class="check">
+              <div class="inside"></div>
+            </div>
+          </li>
+
+          <li>
+            <input type="radio" id="t-option" name="selector" value="hard">
+            <label for="t-option">Hard</label>
+
+            <div class="check">
+              <div class="inside"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <button class="btn play">Play</button>
+    </section>
   </main>
   <footer>
 
   </footer>
   <script src="dist/js/app.js"></script>
 </body>
+
 </html>
