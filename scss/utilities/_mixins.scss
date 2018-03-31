@@ -1,0 +1,38 @@
+@mixin flexy($just: null, $align: null, $wrap:null) {
+  display: flex;
+  justify-content: $just;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+
+//Media query
+@mixin mq($break) {
+  $value: map-get($breakpoints, $break);
+  $xs: map-get($breakpoints, 'xs');
+  $ms: map-get($breakpoints, 'ms');
+  $md: map-get($breakpoints, 'md');
+  $lg: map-get($breakpoints, 'lg');
+  @if $value==null {
+    @error "'#{$break}' is not a valid breakpoint name";
+  }
+  @if ($value==$xs) {
+    @media (min-width: 0) and (max-width: $xs) {
+      @content;
+    }
+  }
+  @else if ($value==$ms) {
+    @media (max-width: $value) {
+      @content;
+    }
+  }
+  @else if ($value==$md) {
+    @media (min-width: $md) {
+      @content;
+    }
+  }
+  @else {
+    @media (min-width: $value) {
+      @content;
+    }
+  }
+}
