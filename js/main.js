@@ -49,13 +49,21 @@
     return api.fetchData();
   };
 
+   //start quiz
+  function* startQuiz(quizes) {
+    for (let quiz of quizes) {
+      yield quiz;
+    }
+  }
+
   //play button event
   const playBtnHandler = () => {
+    let quizes = [];
     playBtn.addEventListener('click', e => {
-      getData().then(res => console.log(res));
+      getData().then(res => quizes = res.results)
+        .then(() => quizes)    
     });
   };
 
   playBtnHandler();
-
 }());
