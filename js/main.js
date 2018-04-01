@@ -1,12 +1,14 @@
 (function () {
 
   let ui = new UI();
+  let errors = new ERRORS();
+
   const playBtn = document.querySelector('.play');
   const ulChecks = document.querySelector('.checks');
   const selectCategories = document.querySelector('.categories');
 
   let categoryVal = '';
-  let dificultyVal = ''
+  let difficultyVal = '';
 
   //append all data when document is loaded
   document.addEventListener('DOMContentLoaded', () => {
@@ -20,7 +22,7 @@
       if (target.tagName === 'LABEL') {
         let value = target.textContent;
 
-        dificultyVal = value.toLowerCase();
+        difficultyVal = value.toLowerCase();
       }
     });
   }());
@@ -40,7 +42,7 @@
   const getData = () => {
     //get category and difficulty
     let category = categoryVal;
-    let difficulty = dificultyVal;
+    let difficulty = difficultyVal;
 
     let api = new Quiz(category, difficulty);
 
