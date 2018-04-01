@@ -32,9 +32,7 @@
     selectCategories.addEventListener('change', e => {
       let target = e.target;
       let value = target.value;
-
       categoryVal = value;
-
     });
   }());
 
@@ -43,9 +41,7 @@
     //get category and difficulty
     let category = categoryVal;
     let difficulty = difficultyVal;
-
     let api = new Quiz(category, difficulty);
-
     return api.fetchData();
   };
 

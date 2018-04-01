@@ -19,7 +19,7 @@ gulp.task('serve', ['style'], () => {
 });
 
 gulp.task('scripts', () => {
-  gulp.src(['js/api.js','js/ui.js','js/main.js'])
+  gulp.src(['js/api.js','js/ui.js','js/errors.js','js/main.js'])
     .pipe(babel({
       presets: ['env']
     }))
