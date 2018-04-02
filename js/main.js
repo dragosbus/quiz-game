@@ -61,9 +61,9 @@
       incorrect_answers,
       correct_answer
     } = quiz.value;
-
     let thisQuestion = ui.quiz(category, question, incorrect_answers, correct_answer);
-    main.innerHTML = thisQuestion;
+    
+    return thisQuestion;
   };
 
   //play button event
@@ -73,12 +73,19 @@
       getData().then(res => quizes = res.results)
         .then(() => {
           let it = startQuiz(quizes);
-          engine(it.next());
+          let thisQuestion = engine(it.next());
+          main.innerHTML = thisQuestion;
 
           document.querySelector('.quiz ul').addEventListener('click', e => {
             let t = e.target;
             if (t.tagName === 'LI') {
-              console.log(it.next());
+              let now = it.next();
+              thisQuestion = engine(now);
+              main.innerHTML = '';
+              setTimeout(() => {
+                main.innerHTML += thisQuestion;
+              }, 500);
+              console.log(thisQuestion);
             }
           });//select answer event
         });

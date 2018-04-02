@@ -30,3 +30,15 @@ class UI {
     return quiz;
   }
 }
+
+class Animations{
+  constructor(element) {
+    this.element = element;
+  }
+  slideLeft() {
+    this.element.classList.add('slide-left');
+    setTimeout(() => {
+      this.element.style.display = 'none';
+    },600);
+  }
+}

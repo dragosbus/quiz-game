@@ -1,0 +1,14 @@
+@keyframes slide-left {
+  0%{
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.slide-left {
+  animation-name: slide-left;
+  animation-duration: 0.55s;
+  animation-timing-function: linear;
+}
