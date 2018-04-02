@@ -66,29 +66,41 @@
     playBtn.addEventListener('click', e => {
       getData().then(res => quizes = res.results)
         .then(() => {
-          let i = 0;
+          var i = 0
           let it = quizes[i];
           thisQuestion = engine(it);
           let anims = new Animations(document.getElementById('intro-page'));
           anims.slideLeftOut();
-          setTimeout(() => {
-            main.innerHTML = thisQuestion;
-
-              document.querySelector('.quiz ul').addEventListener('click', e => {
-                let t = e.target;
-                thisQuestion = engine(quizes[++i]);
-                if (t.tagName === 'LI') {
-                  main.innerHTML = '';
-                  main.innerHTML = thisQuestion;
-                  console.log(thisQuestion);
-                }
-              }); //select answer event
-            
-          }, 500);
-
+          main.innerHTML = thisQuestion;
+          console.log(quizes[i])
+          document.querySelector('.quiz ul').addEventListener('click', e => {
+            let t = e.target;
+            // let thisQuestion = engine(quizes[++i]);
+            if (t.tagName === 'LI') {
+              i++;
+              let animOutQuiz = new Animations(document.querySelector('.quiz'));
+              animOutQuiz.slideLeftOut();
+              setTimeout(() => { 
+                document.querySelector('.quiz').querySelector('h3').innerHTML = quizes[i].category;
+                document.querySelector('.quiz').querySelector('p').innerHTML = quizes[i].question;
+                document.querySelector('.quiz').querySelectorAll('ul li')[0].innerHTML = quizes[i].incorrect_answers[0];
+                document.querySelector('.quiz').querySelectorAll('ul li')[1].innerHTML = quizes[i].incorrect_answers[1];
+                document.querySelector('.quiz').querySelectorAll('ul li')[2].innerHTML = quizes[i].incorrect_answers[2];
+                document.querySelector('.quiz').querySelectorAll('ul li')[3].innerHTML = quizes[i].correct_answer;
+                console.log(1)
+              }, 700);
+              setTimeout(() => {
+                document.querySelector('.quiz').style.display = 'block'
+                document.querySelector('.quiz').classList.remove('slide-left-out')
+                animOutQuiz.slideLeftInt();
+                console.log(2);
+               }, 700);
+            }
+          }); //select answer event
         });
     });
   };
 
   playBtnHandler();
+
 }());
