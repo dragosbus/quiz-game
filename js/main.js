@@ -3,6 +3,7 @@
   let ui = new UI();
   let errors = new ERRORS();
 
+  const main = document.querySelector('main');
   const playBtn = document.querySelector('.play');
   const ulChecks = document.querySelector('.checks');
   const selectCategories = document.querySelector('.categories');
@@ -45,19 +46,42 @@
     return api.fetchData();
   };
 
-   //start quiz
+  //start quiz
   function* startQuiz(quizes) {
     for (let quiz of quizes) {
       yield quiz;
     }
   }
 
+  //quiz game engine
+  const engine = quiz => {
+    let {
+      category,
+      question,
+      incorrect_answers,
+      correct_answer
+    } = quiz.value;
+
+    let thisQuestion = ui.quiz(category, question, incorrect_answers, correct_answer);
+    main.innerHTML = thisQuestion;
+  };
+
   //play button event
   const playBtnHandler = () => {
     let quizes = [];
     playBtn.addEventListener('click', e => {
       getData().then(res => quizes = res.results)
-        .then(() => quizes)    
+        .then(() => {
+          let it = startQuiz(quizes);
+          engine(it.next());
+
+          document.querySelector('.quiz ul').addEventListener('click', e => {
+            let t = e.target;
+            if (t.tagName === 'LI') {
+              console.log(it.next());
+            }
+          });//select answer event
+        });
     });
   };
 

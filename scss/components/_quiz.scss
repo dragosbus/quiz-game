@@ -1,0 +1,56 @@
+.quiz {
+  background: $white;
+  padding: 1rem;
+  width: 90%;
+  margin: auto auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 40rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1.5rem 0.3rem rgba($black, 0.5);
+  text-align: center;
+
+  h3 {
+    font-size: 1.765rem;
+    color: rgba($black, 0.76);
+    margin-bottom: 1.4rem;
+  }
+
+  p {
+    font-size: 1.6rem;
+    margin-bottom: 3rem;
+  }
+
+  ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    li {
+      width: 90%;
+      margin: 1rem auto;
+      font-size: 1.45rem;
+      letter-spacing: 1.2px;
+      background: rgba($green, 1);
+      border-radius: 0.5rem;
+      color: $white;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.55s ease-in;
+      @include mq('md') {
+        width: 40%;
+        margin-top: 5%;
+        &:nth-of-type(3),
+        &:nth-of-type(4) {
+          margin-top: 7%;
+        } 
+      }
+      &:hover {
+        background: cadetblue;
+      }
+    }
+  }
+}

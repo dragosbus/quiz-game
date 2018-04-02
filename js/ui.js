@@ -18,7 +18,7 @@ class UI {
   quiz(category, question, answers, right) {
     let quiz = `<div class="quiz">
       <h3>${category}</h3>
-      <p>${Question}</p>
+      <p>${question}</p>
       <ul>
       <li>${answers[0]}</li>
       <li>${answers[1]}</li>
