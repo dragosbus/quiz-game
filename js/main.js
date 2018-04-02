@@ -10,6 +10,7 @@
 
   let categoryVal = '';
   let difficultyVal = '';
+  let thisQuestion;
 
   //append all data when document is loaded
   document.addEventListener('DOMContentLoaded', () => {
@@ -46,13 +47,6 @@
     return api.fetchData();
   };
 
-  //start quiz
-  function* startQuiz(quizes) {
-    for (let quiz of quizes) {
-      yield quiz;
-    }
-  }
-
   //quiz game engine
   const engine = quiz => {
     let {
@@ -60,9 +54,9 @@
       question,
       incorrect_answers,
       correct_answer
-    } = quiz.value;
+    } = quiz;
     let thisQuestion = ui.quiz(category, question, incorrect_answers, correct_answer);
-    
+
     return thisQuestion;
   };
 
@@ -72,22 +66,26 @@
     playBtn.addEventListener('click', e => {
       getData().then(res => quizes = res.results)
         .then(() => {
-          let it = startQuiz(quizes);
-          let thisQuestion = engine(it.next());
-          main.innerHTML = thisQuestion;
+          let i = 0;
+          let it = quizes[i];
+          thisQuestion = engine(it);
+          let anims = new Animations(document.getElementById('intro-page'));
+          anims.slideLeftOut();
+          setTimeout(() => {
+            main.innerHTML = thisQuestion;
 
-          document.querySelector('.quiz ul').addEventListener('click', e => {
-            let t = e.target;
-            if (t.tagName === 'LI') {
-              let now = it.next();
-              thisQuestion = engine(now);
-              main.innerHTML = '';
-              setTimeout(() => {
-                main.innerHTML += thisQuestion;
-              }, 500);
-              console.log(thisQuestion);
-            }
-          });//select answer event
+              document.querySelector('.quiz ul').addEventListener('click', e => {
+                let t = e.target;
+                thisQuestion = engine(quizes[++i]);
+                if (t.tagName === 'LI') {
+                  main.innerHTML = '';
+                  main.innerHTML = thisQuestion;
+                  console.log(thisQuestion);
+                }
+              }); //select answer event
+            
+          }, 500);
+
         });
     });
   };

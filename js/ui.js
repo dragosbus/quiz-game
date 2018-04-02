@@ -16,7 +16,7 @@ class UI {
   }
 
   quiz(category, question, answers, right) {
-    let quiz = `<div class="quiz">
+    let quiz = `<div class="quiz slide-left-in">
       <h3>${category}</h3>
       <p>${question}</p>
       <ul>
@@ -35,10 +35,13 @@ class Animations{
   constructor(element) {
     this.element = element;
   }
-  slideLeft() {
-    this.element.classList.add('slide-left');
+  slideLeftOut() {
+    this.element.classList.add('slide-left-out');
     setTimeout(() => {
       this.element.style.display = 'none';
     },600);
+  }
+  slideLeftInt() {
+    this.element.classList.add('slide-left-in');
   }
 }
