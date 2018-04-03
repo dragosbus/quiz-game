@@ -62,12 +62,22 @@
 
   //change quiz
   const nextQuiz = (quizes, i) => {
-    document.querySelector('.quiz').querySelector('h3').innerHTML = quizes[i].category;
-    document.querySelector('.quiz').querySelector('p').innerHTML = quizes[i].question;
-    document.querySelector('.quiz').querySelectorAll('ul li')[0].innerHTML = quizes[i].incorrect_answers[0];
-    document.querySelector('.quiz').querySelectorAll('ul li')[1].innerHTML = quizes[i].incorrect_answers[1];
-    document.querySelector('.quiz').querySelectorAll('ul li')[2].innerHTML = quizes[i].incorrect_answers[2];
-    document.querySelector('.quiz').querySelectorAll('ul li')[3].innerHTML = quizes[i].correct_answer;
+    let animQuizPage = new Animations(document.querySelector('.quiz'));
+    
+    if(document.querySelector('.quiz').classList.contains("slide-left-in")) {
+      document.querySelector('.quiz').classList.remove("slide-left-in")
+    }
+    
+    setTimeout(()=>{
+      
+      animQuizPage.slideLeftIn();
+      document.querySelector('.quiz').querySelector('h3').innerHTML = quizes[i].category;
+      document.querySelector('.quiz').querySelector('p').innerHTML = quizes[i].question;
+      document.querySelector('.quiz').querySelectorAll('ul li')[0].innerHTML = quizes[i].incorrect_answers[0];
+      document.querySelector('.quiz').querySelectorAll('ul li')[1].innerHTML = quizes[i].incorrect_answers[1];
+      document.querySelector('.quiz').querySelectorAll('ul li')[2].innerHTML = quizes[i].incorrect_answers[2];
+      document.querySelector('.quiz').querySelectorAll('ul li')[3].innerHTML = quizes[i].correct_answer;
+    },3000);
   };
 
   //check fom right answer
@@ -95,20 +105,22 @@
       getData().then(res => quizes = res.results)
         .then(() => {
           let i = 0;
+          let uiIntro = new Animations(document.getElementById("intro-page"));
+          uiIntro.fadeOut();
           thisQuestion = engine(quizes[i]);
-          let anims = new Animations(document.getElementById('intro-page'));
-          anims.slideLeftOut();
-          main.innerHTML = thisQuestion;
-          //start choose answer event
-          document.querySelector('.quiz ul').addEventListener('click', e => {
-            let t = e.target;
-            checkAnswer(t, quizes[i].correct_answer);
-            if (t.tagName === 'LI') {
-              setTimeout(() => {
+          
+          setTimeout(()=>{
+            main.innerHTML = thisQuestion;
+            //start choose answer event
+            document.querySelector('.quiz ul').addEventListener('click', e => {
+              let t = e.target;
+              checkAnswer(t, quizes[i].correct_answer);
+              if (t.tagName === 'LI') {
                 nextQuiz(quizes, ++i);
-              }, 1500);
-            }
-          }); //select answer event
+              }
+            }); //select answer event
+          },550);
+          
         });
     });
   };

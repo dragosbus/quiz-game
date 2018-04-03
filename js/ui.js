@@ -37,11 +37,12 @@ class Animations{
   }
   slideLeftOut() {
     this.element.classList.add('slide-left-out');
-    setTimeout(() => {
-      this.element.style.display = 'none';
-    },600);
   }
-  slideLeftInt() {
+  slideLeftIn() {
     this.element.classList.add('slide-left-in');
   }
+  fadeOut() {
+    this.element.classList.add('fade-out');
+  }
+  
 }
