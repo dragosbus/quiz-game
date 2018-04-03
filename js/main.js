@@ -72,21 +72,20 @@
 
   //check fom right answer
   const checkAnswer = (choice, rightAnswer) => {
-    if (choice.textContent === rightAnswer) {
-      playerScore += 1;
-      choice.classList.add('right-answer');
-      console.log(choice);
+
+    function addClass(classTarget) {
+      choice.classList.add(classTarget);
       setTimeout(() => {
-        choice.classList.remove('right-answer');
-      }, 1200);
-    } else {
-      choice.classList.add('wrong-answer');
-      setTimeout(() => {
-        choice.classList.remove('wrong-answer');
+        choice.classList.remove(classTarget);
       }, 1200);
     }
-    console.log(playerScore);
-    console.log(rightAnswer);
+
+    if (choice.textContent === rightAnswer) {
+      playerScore += 1;
+      addClass('right-answer');
+    } else {
+      addClass('wrong-answer');
+    }
   };
 
   //play button event
