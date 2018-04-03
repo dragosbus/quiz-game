@@ -10,7 +10,7 @@
 
   let categoryVal = '';
   let difficultyVal = '';
-  let thisQuestion;
+  let thisQuestion, playerScore = 0;
 
   //append all data when document is loaded
   document.addEventListener('DOMContentLoaded', () => {
@@ -70,6 +70,25 @@
     document.querySelector('.quiz').querySelectorAll('ul li')[3].innerHTML = quizes[i].correct_answer;
   };
 
+  //check fom right answer
+  const checkAnswer = (choice, rightAnswer) => {
+    if (choice.textContent === rightAnswer) {
+      playerScore += 1;
+      choice.classList.add('right-answer');
+      console.log(choice);
+      setTimeout(() => {
+        choice.classList.remove('right-answer');
+      }, 1200);
+    } else {
+      choice.classList.add('wrong-answer');
+      setTimeout(() => {
+        choice.classList.remove('wrong-answer');
+      }, 1200);
+    }
+    console.log(playerScore);
+    console.log(rightAnswer);
+  };
+
   //play button event
   const playBtnHandler = () => {
     let quizes = [];
@@ -85,22 +104,12 @@
           console.log(quizes[i])
           document.querySelector('.quiz ul').addEventListener('click', e => {
             let t = e.target;
+            checkAnswer(t, quizes[i].correct_answer);
             i++;
             if (t.tagName === 'LI') {
-              let animOutQuiz = new Animations(document.querySelector('.quiz'));
-              animOutQuiz.slideLeftOut();
-              setTimeout(() => { 
-                nextQuiz(quizes, i);
-              }, 700);
               setTimeout(() => {
-                document.querySelector('.quiz').style.display = 'block'
-                document.querySelector('.quiz').classList.remove('slide-left-out')
-                animOutQuiz.slideLeftInt();
-              }, 700);
-              
-              if (i > quizes.length) {
-                alert('end');
-              }
+                nextQuiz(quizes, i)
+              }, 1500);
             }
           }); //select answer event
         });

@@ -34,12 +34,12 @@
       margin: 1rem auto;
       font-size: 1.45rem;
       letter-spacing: 1.2px;
-      background: rgba($green, 1);
+      background: rgba($color-choices, 1);
       border-radius: 0.5rem;
       color: $white;
       padding: 1rem;
       cursor: pointer;
-      transition: all 0.55s ease-in;
+      transition: all 0.25s ease-in;
       @include mq('md') {
         width: 40%;
         margin-top: 5%;
@@ -49,7 +49,7 @@
         } 
       }
       &:hover {
-        background: cadetblue;
+        background: darken($color: $color-choices, $amount: 8);
       }
     }
   }

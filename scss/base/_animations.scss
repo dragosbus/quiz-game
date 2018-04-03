@@ -27,3 +27,11 @@
   animation-duration: 0.55s;
   animation-timing-function: linear;
 }
+
+.quiz ul li.right-answer {
+  background: rgb(23, 125, 30);
+}
+
+.quiz ul li.wrong-answer {
+  background: rgb(159, 27, 27);
+}
