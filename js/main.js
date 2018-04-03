@@ -95,19 +95,17 @@
       getData().then(res => quizes = res.results)
         .then(() => {
           let i = 0;
-          let it = quizes[i];
-          thisQuestion = engine(it);
+          thisQuestion = engine(quizes[i]);
           let anims = new Animations(document.getElementById('intro-page'));
           anims.slideLeftOut();
           main.innerHTML = thisQuestion;
-          console.log(quizes[i])
+          //start choose answer event
           document.querySelector('.quiz ul').addEventListener('click', e => {
             let t = e.target;
             checkAnswer(t, quizes[i].correct_answer);
-            i++;
             if (t.tagName === 'LI') {
               setTimeout(() => {
-                nextQuiz(quizes, i)
+                nextQuiz(quizes, ++i);
               }, 1500);
             }
           }); //select answer event
