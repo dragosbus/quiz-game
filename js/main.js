@@ -8,9 +8,12 @@
   const ulChecks = document.querySelector('.checks');
   const selectCategories = document.querySelector('.categories');
 
-  let categoryVal = '';
-  let difficultyVal = '';
-  let thisQuestion, playerScore = 0;
+  let categoryVal = '',
+      difficultyVal = '',
+      thisQuestion,
+      playerScore = 0,
+      indexQuestion = 0,
+      quizes = [];
 
   //append all data when document is loaded
   document.addEventListener('DOMContentLoaded', () => {
@@ -48,7 +51,7 @@
   };
 
   //quiz game engine
-  const engine = quiz => {
+  const loadQuiz = quiz => {
     let {
       category,
       question,
@@ -61,7 +64,7 @@
   };
 
   //change quiz
-  const nextQuiz = (quizes, i) => {
+  const nextQuiz = (quizes, i=indexQuestion) => {
     let animQuizPage = new Animations(document.querySelector('.quiz'));
     
     if(document.querySelector('.quiz').classList.contains("slide-left-in")) {
@@ -97,28 +100,29 @@
       addClass('wrong-answer');
     }
   };
+  
+const chooseAnswer = e => {
+  let t = e.target;
+  checkAnswer(t, quizes[indexQuestion].correct_answer);
+  if (t.tagName === 'LI') {
+      nextQuiz(quizes, ++indexQuestion);
+  }
+};
 
   //play button event
   const playBtnHandler = () => {
-    let quizes = [];
     playBtn.addEventListener('click', e => {
       getData().then(res => quizes = res.results)
-        .then(() => {
-          let i = 0;
+        .then(()=> {
           let uiIntro = new Animations(document.getElementById("intro-page"));
           uiIntro.fadeOut();
-          thisQuestion = engine(quizes[i]);
+          thisQuestion = loadQuiz(quizes[indexQuestion]);
           
           setTimeout(()=>{
             main.innerHTML = thisQuestion;
+            document.querySelector('.quiz ul').removeEventListener("click", chooseAnswer);
             //start choose answer event
-            document.querySelector('.quiz ul').addEventListener('click', e => {
-              let t = e.target;
-              checkAnswer(t, quizes[i].correct_answer);
-              if (t.tagName === 'LI') {
-                nextQuiz(quizes, ++i);
-              }
-            }); //select answer event
+            document.querySelector('.quiz ul').addEventListener('click', chooseAnswer); //select answer event
           },550);
           
         });
