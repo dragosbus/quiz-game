@@ -66,7 +66,6 @@
   //change quiz
   const nextQuiz = (quizes, i=indexQuestion) => {
     let animQuizPage = new Animations(document.querySelector('.quiz'));
-    
     if(document.querySelector('.quiz').classList.contains("slide-left-in")) {
       document.querySelector('.quiz').classList.remove("slide-left-in")
     }
@@ -105,7 +104,13 @@ const chooseAnswer = e => {
   let t = e.target;
   checkAnswer(t, quizes[indexQuestion].correct_answer);
   if (t.tagName === 'LI') {
-      nextQuiz(quizes, ++indexQuestion);
+    nextQuiz(quizes, ++indexQuestion);
+    //the player should not be able to click and answer, if he clicked once
+    document.querySelector('.quiz ul').removeEventListener("click", chooseAnswer);
+    //when the next question is shown, allow to player to choose an answer
+    setTimeout(()=>{
+      document.querySelector('.quiz ul').addEventListener('click', chooseAnswer); //select answer event
+    },3000);
   }
 };
 
@@ -120,7 +125,6 @@ const chooseAnswer = e => {
           
           setTimeout(()=>{
             main.innerHTML = thisQuestion;
-            document.querySelector('.quiz ul').removeEventListener("click", chooseAnswer);
             //start choose answer event
             document.querySelector('.quiz ul').addEventListener('click', chooseAnswer); //select answer event
           },550);
