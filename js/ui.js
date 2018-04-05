@@ -29,6 +29,15 @@ class UI {
     
     return quiz;
   }
+  
+  infos(currentQuizIndex, quizes, time) {
+    let info = `<div class="info">
+    <p class="index-question">${currentQuizIndex+1}/${quizes.length}</p>
+    <p>${time}</p>
+    </div>`
+    
+    return info;
+  }
 }
 
 class Animations{

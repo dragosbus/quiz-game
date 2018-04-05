@@ -1,4 +1,5 @@
-.quiz {
+.quiz,
+.info{
   background: $white;
   padding: 1rem;
   width: 90%;
@@ -50,4 +51,9 @@
       }
     }
   }
+}
+
+.info {
+  top: -55rem;
+  height: 4rem;
 }

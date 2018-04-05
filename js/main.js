@@ -13,7 +13,8 @@
       thisQuestion,
       playerScore = 0,
       indexQuestion = 0,
-      quizes = [];
+      quizes = [],
+      countQuestion
       
 //initialise global variables at initial state
 const init = () => {
@@ -84,7 +85,8 @@ const nextQuiz = (quizes, i=indexQuestion) => {
     document.querySelector('.quiz').querySelectorAll('ul li')[1].innerHTML = quizes[i].incorrect_answers[1];
     document.querySelector('.quiz').querySelectorAll('ul li')[2].innerHTML = quizes[i].incorrect_answers[2];
     document.querySelector('.quiz').querySelectorAll('ul li')[3].innerHTML = quizes[i].correct_answer;
-  },3000);
+    document.querySelector(".index-question").textContent = `${i+1}/${quizes.length}`;
+  },1200);
 };
 
   //check fom right answer
@@ -110,24 +112,23 @@ const chooseAnswer = e => {
   checkAnswer(t, quizes[indexQuestion].correct_answer);
   if (t.tagName === 'LI') {
     nextQuiz(quizes, ++indexQuestion);
+    
     //the player should not be able to click and answer, if he clicked once
     document.querySelector('.quiz ul').removeEventListener("click", chooseAnswer);
     //when the next question is shown, allow to player to choose an answer
     setTimeout(()=>{
       document.querySelector('.quiz ul').addEventListener('click', chooseAnswer); //select answer event
-    },3000);
+    },1300);
   }
 };
 
 const handlerQuizNotExistent = () =>{
-  let quizNotExistent = new ERRORS();
-  quizNotExistent.quizNotAvaible();
+  errors.quizNotAvaible();
   document.getElementById("intro-page").classList.remove("fade-out");
   init();
   //hide error message after 3 seconds
   setTimeout(()=>{
     document.getElementById("intro-page").removeChild(document.querySelector(".not-quiz"));
-    // location.reload();
   }, 3000);
 };
 
@@ -135,8 +136,11 @@ const handlerQuizSuccess = quizes =>{
   let uiIntro = new Animations(document.getElementById("intro-page"));
   uiIntro.fadeOut();
   thisQuestion = loadQuiz(quizes[indexQuestion]);
+  countQuestion = ui.infos(indexQuestion, quizes, 0);
+    
   setTimeout(()=>{
     main.innerHTML = thisQuestion;
+    main.innerHTML+=countQuestion;
     //start choose answer event
     document.querySelector('.quiz ul').addEventListener('click', chooseAnswer); //select answer event
   },550);
