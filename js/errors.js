@@ -8,5 +8,9 @@ class ERRORS {
     <p>Is not exist questions for category selected!Please choose other category or other difficulty</p>
     </div>`;
     this.parentIntro.innerHTML+=error;
+    
+    setTimeout(()=>{
+      location.reload();
+    },2000);
   }
 }

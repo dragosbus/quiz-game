@@ -38,6 +38,15 @@ class UI {
     
     return info;
   }
+  
+  gameEnd(countRightAnswers) {
+    let end = `<div class="end-game">
+    <p>You have ${countRightAnswers} right answers</p>
+    <button class="new-game">New game</button>
+    </div>`;
+    
+    return end;
+  }
 }
 
 class Animations{

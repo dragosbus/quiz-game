@@ -14,7 +14,7 @@
       playerScore = 0,
       indexQuestion = 0,
       quizes = [],
-      countQuestion
+      countQuestion;
       
 //initialise global variables at initial state
 const init = () => {
@@ -69,6 +69,14 @@ const loadQuiz = quiz => {
   return thisQuestion;
 };
 
+//ended game handler
+const gameEnd = () =>{
+  let divEndGame = ui.gameEnd(playerScore);
+  main.innerHTML = divEndGame;
+  
+  document.querySelector(".new-game").addEventListener("click",()=>location.reload());
+};
+
 //change quiz
 const nextQuiz = (quizes, i=indexQuestion) => {
   let animQuizPage = new Animations(document.querySelector('.quiz'));
@@ -77,6 +85,11 @@ const nextQuiz = (quizes, i=indexQuestion) => {
   }
     
   setTimeout(()=>{
+    
+    //check first if qustions are finished
+    if(indexQuestion===quizes.length) {
+    gameEnd(playerScore);
+    }
       
     animQuizPage.slideLeftIn();
     document.querySelector('.quiz').querySelector('h3').innerHTML = quizes[i].category;
@@ -87,6 +100,7 @@ const nextQuiz = (quizes, i=indexQuestion) => {
     document.querySelector('.quiz').querySelectorAll('ul li')[3].innerHTML = quizes[i].correct_answer;
     document.querySelector(".index-question").textContent = `${i+1}/${quizes.length}`;
   },1200);
+  
 };
 
   //check fom right answer
@@ -110,9 +124,9 @@ const checkAnswer = (choice, rightAnswer) => {
 const chooseAnswer = e => {
   let t = e.target;
   checkAnswer(t, quizes[indexQuestion].correct_answer);
+  
   if (t.tagName === 'LI') {
     nextQuiz(quizes, ++indexQuestion);
-    
     //the player should not be able to click and answer, if he clicked once
     document.querySelector('.quiz ul').removeEventListener("click", chooseAnswer);
     //when the next question is shown, allow to player to choose an answer
@@ -156,6 +170,7 @@ const handlerQuizSuccess = quizes =>{
           } else {
             handlerQuizNotExistent();
           }
+          
         });
     });
   };

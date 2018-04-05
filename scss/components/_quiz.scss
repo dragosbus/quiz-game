@@ -1,5 +1,6 @@
 .quiz,
-.info{
+.info,
+.end-game{
   background: $white;
   padding: 1rem;
   width: 90%;
@@ -53,7 +54,11 @@
   }
 }
 
-.info {
+.info{
   top: -55rem;
   height: 4rem;
+}
+
+.end-game {
+  height: 10rem;
 }
