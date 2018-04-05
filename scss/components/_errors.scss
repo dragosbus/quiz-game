@@ -2,4 +2,25 @@
   background: red;
   padding: 1rem 0;
   color: $white;
+  position: fixed;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+}
+
+.not-quiz {
+  background: $color-error;
+  color: $white;
+  margin-top: 3rem;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  
+  h3 {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+  
+  p {
+    font-size: 1.15rem;
+  }
 }
