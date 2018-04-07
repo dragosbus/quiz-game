@@ -9,12 +9,12 @@
   const selectCategories = document.querySelector('.categories');
 
   let categoryVal = '',
-      difficultyVal = '',
-      thisQuestion,
-      playerScore = 0,
-      indexQuestion = 0,
-      quizes = [],
-      countQuestion;
+    difficultyVal = '',
+    thisQuestion,
+    playerScore = 0,
+    indexQuestion = 0,
+    quizes = [],
+    countQuestion;
       
 //initialise global variables at initial state
 const init = () => {
@@ -25,6 +25,16 @@ const init = () => {
   indexQuestion = 0;
   quizes = [];
 };
+
+//set timer, depended of the difficulty of the question
+  const setTimer = difficulty => {
+    let timer = 0;
+    if (difficulty === 'easy') timer = 10;
+    else if (difficulty === 'medium') timer = 15;
+    else timer = 20;
+
+    return timer;
+  };  
 
 //get dificulty clicked
 const getDifificulty = () => {
@@ -64,7 +74,8 @@ const loadQuiz = quiz => {
     incorrect_answers,
     correct_answer
   } = quiz;
-  let thisQuestion = ui.quiz(category, question, incorrect_answers, correct_answer);
+  let timer = setTimer(quiz.difficulty);
+  let thisQuestion = ui.quiz(category, question, incorrect_answers, correct_answer, timer);
 
   return thisQuestion;
 };
@@ -93,7 +104,7 @@ const nextQuiz = (quizes, i=indexQuestion) => {
       
     animQuizPage.slideLeftIn();
     document.querySelector('.quiz').querySelector('h3').innerHTML = quizes[i].category;
-    document.querySelector('.quiz').querySelector('p').innerHTML = quizes[i].question;
+    document.querySelector('.quiz').querySelector('p.question').innerHTML = quizes[i].question;
     document.querySelector('.quiz').querySelectorAll('ul li')[0].innerHTML = quizes[i].incorrect_answers[0];
     document.querySelector('.quiz').querySelectorAll('ul li')[1].innerHTML = quizes[i].incorrect_answers[1];
     document.querySelector('.quiz').querySelectorAll('ul li')[2].innerHTML = quizes[i].incorrect_answers[2];
@@ -150,8 +161,8 @@ const handlerQuizSuccess = quizes =>{
   let uiIntro = new Animations(document.getElementById("intro-page"));
   uiIntro.fadeOut();
   thisQuestion = loadQuiz(quizes[indexQuestion]);
-  countQuestion = ui.infos(indexQuestion, quizes, 0);
-    
+  countQuestion = ui.infos(indexQuestion, quizes);
+  console.log(quizes);
   setTimeout(()=>{
     main.innerHTML = thisQuestion;
     main.innerHTML+=countQuestion;

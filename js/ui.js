@@ -15,10 +15,11 @@ class UI {
     }
   }
 
-  quiz(category, question, answers, right) {
+  quiz(category, question, answers, right, time) {
     let quiz = `<div class="quiz slide-left-in">
+      <p class="time">${time}</p>
       <h3>${category}</h3>
-      <p>${question}</p>
+      <p class="question">${question}</p>
       <ul>
       <li>${answers[0]}</li>
       <li>${answers[1]}</li>
@@ -30,10 +31,9 @@ class UI {
     return quiz;
   }
   
-  infos(currentQuizIndex, quizes, time) {
+  infos(currentQuizIndex, quizes) {
     let info = `<div class="info">
     <p class="index-question">${currentQuizIndex+1}/${quizes.length}</p>
-    <p>${time}</p>
     </div>`
     
     return info;
