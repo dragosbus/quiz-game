@@ -5,7 +5,7 @@ class UI {
   }
   
   categories() {
-    let categories = [["Sports", 21], ["Geography", 22], ["Politics", 24]];
+    let categories = [["Sports", 21], ["Geography", 22], ["Politics", 24],["History", 23]];
     for (let cat of categories) {
       let selectOption = document.createElement('option');
       selectOption.value = cat[1];
