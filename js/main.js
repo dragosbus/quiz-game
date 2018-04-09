@@ -16,16 +16,6 @@
     quizes = [],
     countQuestion;
 
-  //initialise global variables at initial state
-  const init = () => {
-    categoryVal = '';
-    difficultyVal = '';
-    thisQuestion;
-    playerScore = 0;
-    indexQuestion = 0;
-    quizes = [];
-  };
-
   //set timer, depended of the difficulty of the question
   const setTimer = difficulty => {
     let timer = 0;
@@ -37,9 +27,10 @@
   };
 
   //reset timer
-  const resetTimer = (quiz, i, parent) => {
+  const resetTimer = (quiz, i) => {
     let newTimer = setTimer(quiz[i].difficulty);
-    parent.textContent = newTimer;
+    
+    return newTimer;
   };
 
   //get dificulty clicked
@@ -98,22 +89,16 @@
     if (document.querySelector('.quiz').classList.contains("slide-left-in")) {
       document.querySelector('.quiz').classList.remove("slide-left-in")
     }
-
     setTimeout(() => {
-
       //check first if qustions are finished
       if (indexQuestion === quizes.length) {
         gameEnd(playerScore);
       }
-
       animQuizPage.slideLeftIn();
-      document.querySelector('.quiz').querySelector('h3').innerHTML = quizes[i].category;
-      document.querySelector('.quiz').querySelector('p.question').innerHTML = quizes[i].question;
-      document.querySelector('.quiz').querySelectorAll('ul li')[0].innerHTML = quizes[i].incorrect_answers[0];
-      document.querySelector('.quiz').querySelectorAll('ul li')[1].innerHTML = quizes[i].incorrect_answers[1];
-      document.querySelector('.quiz').querySelectorAll('ul li')[2].innerHTML = quizes[i].incorrect_answers[2];
-      document.querySelector('.quiz').querySelectorAll('ul li')[3].innerHTML = quizes[i].correct_answer;
-      document.querySelector(".index-question").textContent = `${i + 1}/${quizes.length}`;
+      setTimeout(()=>{
+        thisQuestion = loadQuiz(quizes[indexQuestion]);
+        main.innerHTML+=thisQuestion;
+      },1200);
 
       resetTimer(quizes, indexQuestion, document.querySelector('.quiz').querySelector('p.time'));
 
