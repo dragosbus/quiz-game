@@ -1,81 +1,5 @@
 (function () {
 
-  let ui = new UI();
-  let errors = new ERRORS();
-
-  const main = document.querySelector('main');
-  const playBtn = document.querySelector('.play');
-  const ulChecks = document.querySelector('.checks');
-  const selectCategories = document.querySelector('.categories');
-
-  let categoryVal = '',
-    difficultyVal = '',
-    thisQuestion,
-    playerScore = 0,
-    indexQuestion = 0,
-    quizes = [],
-    countQuestion;
-
-  //set timer, depended of the difficulty of the question
-  const setTimer = difficulty => {
-    let timer = 0;
-    if (difficulty === 'easy') timer = 10;
-    else if (difficulty === 'medium') timer = 15;
-    else timer = 20;
-
-    return timer;
-  };
-
-  //reset timer
-  const resetTimer = (quiz, i) => {
-    let newTimer = setTimer(quiz[i].difficulty);
-    
-    return newTimer;
-  };
-
-  //get dificulty clicked
-  const getDifificulty = () => {
-    ulChecks.addEventListener('click', e => {
-      let target = e.target;
-      if (target.tagName === 'LABEL') {
-        let value = target.textContent;
-        difficultyVal = value.toLowerCase();
-      }
-    });
-  };
-
-  //get category selected
-  const getCategory = () => {
-    selectCategories.addEventListener('change', e => {
-      let target = e.target;
-      let value = target.value;
-      categoryVal = value;
-    });
-  };
-
-  //fetch data
-  const getData = () => {
-    //get category and difficulty
-    let category = categoryVal;
-    let difficulty = difficultyVal;
-    let api = new Quiz(category, difficulty);
-    return api.fetchData();
-  };
-
-  //quiz game engine
-  const loadQuiz = quiz => {
-    let {
-      category,
-      question,
-      incorrect_answers,
-      correct_answer
-    } = quiz;
-    let timer = setTimer(quiz.difficulty);
-    let thisQuestion = ui.quiz(category, question, incorrect_answers, correct_answer, timer);
-
-    return thisQuestion;
-  };
-
   //ended game handler
   const gameEnd = () => {
     let divEndGame = ui.gameEnd(playerScore);
@@ -192,12 +116,6 @@
     });
   };
 
-  //append all data when document is loaded
-  document.addEventListener('DOMContentLoaded', () => {
-    ui.categories();
-    getDifificulty();
-    getCategory();
-    playBtnHandler();
-  });
+  
 
 }());

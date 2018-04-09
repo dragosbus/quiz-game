@@ -2,10 +2,31 @@ class UI {
   constructor() {
     this.main = document.querySelector('main');
     this.selectCat = document.querySelector('.categories--select');
+    this.playBtn = document.querySelector('.play');
+    this.ulAnswers = document.querySelector('.checks');
   }
-  
-  categories() {
-    let categories = [["Sports", 21], ["Geography", 22], ["Politics", 24],["History", 23]];
+
+  init() {
+    //append all data when document is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      this.renderCategories();
+
+      let {
+        fetchData,
+        introPage,
+        timer,
+        engine
+      } = App;
+    });
+  }
+
+  renderCategories() {
+    let categories = [
+      ["Sports", 21],
+      ["Geography", 22],
+      ["Politics", 24],
+      ["History", 23]
+    ];
     for (let cat of categories) {
       let selectOption = document.createElement('option');
       selectOption.value = cat[1];
@@ -15,41 +36,54 @@ class UI {
     }
   }
 
-  quiz(category, question, answers, right, time) {
-    let quiz = `<div class="quiz slide-left-in">
-      <p class="time">${time}</p>
+  renderQuestion(quiz, timer) {
+    let {
+      category,
+      question,
+      incorrect_answers,
+      correct_answer
+    } = quiz;
+
+    let quizTemplate = `<div class="quiz slide-left-in">
+      <p class="time">${timer}</p>
       <h3>${category}</h3>
       <p class="question">${question}</p>
       <ul>
-      <li>${answers[0]}</li>
-      <li>${answers[1]}</li>
-      <li>${answers[2]}</li>
-      <li>${right}</li>
+      <li>${incorrect_answers[0]}</li>
+      <li>${incorrect_answers[1]}</li>
+      <li>${incorrect_answers[2]}</li>
+      <li>${correct_answer}</li>
       </ul>
       </div>`;
-    
-    return quiz;
+
+    this.main.innerHTML = quizTemplate;
   }
-  
-  infos(currentQuizIndex, quizes) {
+
+  renderInfos(currentQuizIndex, quizes) {
     let info = `<div class="info">
     <p class="index-question">${currentQuizIndex+1}/${quizes.length}</p>
     </div>`
-    
-    return info;
+
+    this.main.innerHTML += this.renderInfos;
   }
-  
-  gameEnd(countRightAnswers) {
+
+  renderEndGame(countRightAnswers) {
     let end = `<div class="end-game">
     <p>You have ${countRightAnswers} right answers</p>
     <button class="new-game">New game</button>
     </div>`;
-    
-    return end;
+
+    this.main.innerHTML = end;
+  }
+
+  playBtnHandler() {
+    this.playBtn.addEventListener('click', () => {
+      this.renderQuestion();
+    });
   }
 }
 
-class Animations{
+class Animations {
   constructor(element) {
     this.element = element;
   }
@@ -62,5 +96,8 @@ class Animations{
   fadeOut() {
     this.element.classList.add('fade-out');
   }
-  
+
 }
+
+let ui = new UI();
+ui.init();
