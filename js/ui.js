@@ -2,8 +2,8 @@ class UI {
   constructor() {
     this.main = document.querySelector('main');
     this.selectCat = document.querySelector('.categories--select');
-    this.playBtn = document.querySelector('.play');
-    this.ulAnswers = document.querySelector('.checks');
+    this.selectDifficulty = document.querySelector(".difficulties");
+    this.playBtn = document.querySelector(".play");
   }
 
   init() {
@@ -34,6 +34,16 @@ class UI {
 
       this.selectCat.appendChild(selectOption);
     }
+  }
+  
+  getQuiz() {
+    this.selectDifficulty.addEventListener("click", App.getDifificulty);
+    this.selectCat.addEventListener("change", App.getCategory);
+    DATA.init(App.categoryVal, App.difficultyVal);
+    this.playBtn.addEventListener("click", ()=>{
+      console.log(DATA.questions);
+      console.log(App.difficultyVal)
+    });
   }
 
   renderQuestion(quiz, timer) {
