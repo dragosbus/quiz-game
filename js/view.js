@@ -9,16 +9,15 @@ const VIEW = (function () {
 
     //create option with categorys
     function categories() {
-        let categories = [
-            ["Sports", 21],
-            ["Geography", 22],
-            ["Politics", 24],
-            ["History", 23]
+        let categories = ["Sports",
+            "Geography",
+            "Politics",
+            "History"
         ];
         for (let cat of categories) {
             let selectOption = document.createElement('option');
-            selectOption.value = cat[1];
-            selectOption.textContent = cat[0];
+            selectOption.value = cat;
+            selectOption.textContent = cat;
             selectCat.appendChild(selectOption);
         }
 
@@ -46,8 +45,8 @@ const VIEW = (function () {
         getCategory();
         getDifficulty();
         playBtn.addEventListener("click", () => {
-            const quiz = CONTROLLER.getData();
-            console.log(quiz);
+            CONTROLLER.getQuiz(dif, cat);    
+            console.log(CONTROLLER.quiz);
         });
     }
 

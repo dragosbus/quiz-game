@@ -1,15 +1,12 @@
 const CONTROLLER = {
+    quiz:[],
 
-    setData(category, difficulty) {
-        return DATA.init(category, difficulty);
-    },
-
-    getData() {
-        return DATA.quiz;
+    getQuiz(diff, cat) {
+        this.quiz = data;
     },
 
     setDifficultyVal(val) {
-        let difficultyVal = val; 
+        let difficultyVal = val;
         return difficultyVal;
     },
 
