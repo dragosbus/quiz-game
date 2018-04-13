@@ -32,16 +32,6 @@ const App = (function() {
         }
     };
     
-    const fetchData = {
-        init() {
-            let {category, difficulty} = introPage;
-            this.api = new Quiz(category, difficulty);
-            return this.api.fetchData();
-        }
-    };
-    
-    function init() {
-        
-    }
+    return {introPage};
     
 }());

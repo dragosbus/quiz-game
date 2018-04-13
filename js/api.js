@@ -5,7 +5,6 @@ class Quiz {
   }
   fetchData() {
     let url = `https://opentdb.com/api.php?amount=10&category=${this.category}&difficulty=${this.difficulty}&type=multiple`;
-    console.log(url)
     return fetch(url).then(res => res.json());
   }
 

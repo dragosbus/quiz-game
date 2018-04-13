@@ -2,6 +2,8 @@ class UI {
   constructor() {
     this.main = document.querySelector('main');
     this.selectCat = document.querySelector('.categories--select');
+    this.selectDifficulty = document.querySelector(".difficulties");
+    this.playBtn = document.querySelector(".play");
   }
   
   categories() {
@@ -13,6 +15,16 @@ class UI {
 
       this.selectCat.appendChild(selectOption);
     }
+  }
+  
+  getQuiz() {
+    this.selectDifficulty.addEventListener("click", App.getDifificulty);
+    this.selectCat.addEventListener("change", App.getCategory);
+    DATA.init(App.categoryVal, App.difficultyVal);
+    this.playBtn.addEventListener("click", ()=>{
+      console.log(DATA.questions);
+      console.log(App.difficultyVal)
+    });
   }
 
   quiz(category, question, answers, right, time) {
@@ -64,3 +76,9 @@ class Animations{
   }
   
 }
+
+document.addEventListener("DOMContentLoaded",()=>{
+  let ui = new UI();
+  ui.categories();
+  ui.getQuiz();
+});
