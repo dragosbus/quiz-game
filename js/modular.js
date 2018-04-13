@@ -13,7 +13,6 @@
    
    const controller = {
        init() {
-           data.init();
            view.init();
        },
        
