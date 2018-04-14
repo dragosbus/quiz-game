@@ -8,8 +8,8 @@ const UI = (function () {
       <ul>
       <li>${answers[0]}</li>
       <li>${answers[1]}</li>
-      <li>${answers[2]}</li>
       <li>${right}</li>
+      <li>${answers[2]}</li>
       </ul>
       </div>`;
         return quiz;
@@ -29,19 +29,30 @@ const UI = (function () {
     </div>`;
         return end;
     }
+
+    return {
+        quiz,
+        infos,
+        gameEnd
+    };
 }());
 
-class Animations {
-    constructor(element) {
-        this.element = element;
+const Animations = (function () {
+
+    function slideLeftOut() {
+        this.classList.add('slide-left-out');
     }
-    slideLeftOut() {
-        this.element.classList.add('slide-left-out');
+
+    function slideLeftIn() {
+        this.classList.add('slide-left-in');
     }
-    slideLeftIn() {
-        this.element.classList.add('slide-left-in');
+
+    function fadeOut() {
+        this.classList.add('fade-out');
     }
-    fadeOut() {
-        this.element.classList.add('fade-out');
-    }
-}
+    return {
+        slideLeftIn,
+        slideLeftOut,
+        fadeOut
+    };
+}());
