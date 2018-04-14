@@ -1,7 +1,7 @@
 const CONTROLLER = {
     quiz: [].concat(data['easy']).concat(data['medium']).concat(data['hard']),
     question: [],
-    indexQuestion:0,
+    indexQuestion: 0,
 
     getQuiz(diff, cat) {
         if (diff && cat) {
@@ -33,11 +33,5 @@ const clock = {
         if (difficulty === 'easy') this.timer = 10;
         else if (difficulty === 'medium') this.timer = 15;
         else this.timer = 20;
-
-        return this.timer;
-    },
-    resetTimer() {
-        this.timer = 0;
-        return this.timer;
     }
 }

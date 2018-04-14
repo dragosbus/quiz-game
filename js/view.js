@@ -53,28 +53,39 @@ const VIEW = (function () {
     }
 
     function render(questions, i, prevElement = intro) {
-        let timer = clock.setTimer(questions[i].difficulty);
+        clock.setTimer(questions[i].difficulty);
+
         let questionTemplate = UI.quiz(
             questions[i].category,
             questions[i].question,
             questions[i].incorrect_answers,
             questions[i].correct_answer,
-            timer
+            clock.timer
         );
+
         Animations.fadeOut.call(prevElement);
         setTimeout(() => {
             main.innerHTML = questionTemplate;
-            nextQuestion();
+            decrementTimer();
+            document.querySelector('.quiz ul').addEventListener('click', e => {
+                nextQuestion();
+            });
         }, 550);
     }
 
     function nextQuestion() {
-        document.querySelector('.quiz ul').addEventListener('click', e => {
-            let quiz = document.querySelector('.quiz');
-            let i = CONTROLLER.nextQuestion();
-            Animations.slideLeftOut.call(quiz);
-            render(questions, i, prevElement = quiz);
-        });
+        let quiz = document.querySelector('.quiz');
+        let i = CONTROLLER.nextQuestion();
+        render(questions, i, prevElement = quiz);
+    }
+
+    function decrementTimer() {
+        for (let i = 0; i < clock.timer; i++) {
+            setTimeout(() => {
+                document.querySelector('.time').textContent = clock.timer--;
+                if (clock.timer < 1) nextQuestion();
+            }, 1000 * i);
+        }
     }
 
     categories();
