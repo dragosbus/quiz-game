@@ -3,7 +3,11 @@ const CONTROLLER = {
     question:[],
 
     getQuiz(diff, cat) {
-        this.question = this.quiz.filter(q => q['difficulty'] === diff && q['category'] === cat);
+        if (diff && cat) {
+            this.question = this.quiz.filter(q => q['difficulty'] === diff && q['category'] === cat);
+        } else {
+            this.question = this.quiz;
+        }
     },
 
     setDifficultyVal(val) {

@@ -50,6 +50,10 @@ const VIEW = (function () {
         });
     }
 
+    function render() {
+        
+    }
+
     categories();
     playBtnEvent();
 
