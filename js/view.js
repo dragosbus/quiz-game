@@ -46,7 +46,7 @@ const VIEW = (function () {
         getDifficulty();
         playBtn.addEventListener("click", () => {
             CONTROLLER.getQuiz(dif, cat);    
-            console.log(CONTROLLER.quiz);
+            console.log(CONTROLLER.question);
         });
     }
 

@@ -1,8 +1,9 @@
 const CONTROLLER = {
-    quiz:[],
+    quiz: [].concat(data['easy']).concat(data['medium']).concat(data['hard']),
+    question:[],
 
     getQuiz(diff, cat) {
-        this.quiz = data;
+        this.question = this.quiz.filter(q => q['difficulty'] === diff && q['category'] === cat);
     },
 
     setDifficultyVal(val) {
