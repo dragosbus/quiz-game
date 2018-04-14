@@ -1,6 +1,7 @@
 const CONTROLLER = {
     quiz: [].concat(data['easy']).concat(data['medium']).concat(data['hard']),
-    question:[],
+    question: [],
+    indexQuestion:0,
 
     getQuiz(diff, cat) {
         if (diff && cat) {
@@ -18,6 +19,10 @@ const CONTROLLER = {
     setCategoryVal(val) {
         let categoryVal = val;
         return categoryVal;
+    },
+
+    nextQuestion() {
+        return ++this.indexQuestion;
     }
 
 };

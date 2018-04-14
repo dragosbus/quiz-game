@@ -4,8 +4,9 @@ const VIEW = (function () {
     const selectCat = document.querySelector('.categories--select');
     const selectDifficulty = document.querySelector(".difficulties");
     const playBtn = document.querySelector(".play");
+    const intro = document.getElementById("intro-page");
 
-    let dif, cat, questions, indexQuestion=0;
+    let dif, cat, questions;
 
     //create option with categorys
     function categories() {
@@ -47,12 +48,11 @@ const VIEW = (function () {
         playBtn.addEventListener("click", () => {
             CONTROLLER.getQuiz(dif, cat);
             questions = CONTROLLER.question;
-            console.log(questions);
-            render(questions, indexQuestion);
+            render(questions, CONTROLLER.indexQuestion);
         });
     }
 
-    function render(questions, i) {
+    function render(questions, i, prevElement = intro) {
         let timer = clock.setTimer(questions[i].difficulty);
         let questionTemplate = UI.quiz(
             questions[i].category,
@@ -61,10 +61,20 @@ const VIEW = (function () {
             questions[i].correct_answer,
             timer
         );
-        Animations.fadeOut.call(document.getElementById("intro-page"));
+        Animations.fadeOut.call(prevElement);
         setTimeout(() => {
             main.innerHTML = questionTemplate;
+            nextQuestion();
         }, 550);
+    }
+
+    function nextQuestion() {
+        document.querySelector('.quiz ul').addEventListener('click', e => {
+            let quiz = document.querySelector('.quiz');
+            let i = CONTROLLER.nextQuestion();
+            Animations.slideLeftOut.call(quiz);
+            render(questions, i, prevElement = quiz);
+        });
     }
 
     categories();
