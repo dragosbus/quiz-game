@@ -45,20 +45,20 @@ const VIEW = (function () {
         getCategory();
         getDifficulty();
         playBtn.addEventListener("click", () => {
-            render();
+            CONTROLLER.getQuiz(dif, cat);
+            let questions = CONTROLLER.question;
+            console.log(questions);
+            render(questions, indexQuestion);
         });
     }
 
-    function render() {
-        CONTROLLER.getQuiz(dif, cat);
-        let questions = CONTROLLER.question;
-        console.log(questions);
-        let timer = clock.setTimer(questions[indexQuestion].difficulty);
+    function render(questions, i) {
+        let timer = clock.setTimer(questions[i].difficulty);
         let questionTemplate = UI.quiz(
-            questions[indexQuestion].category,
-            questions[indexQuestion].question,
-            questions[indexQuestion].incorrect_answers,
-            questions[indexQuestion].correct_answer,
+            questions[i].category,
+            questions[i].question,
+            questions[i].incorrect_answers,
+            questions[i].correct_answer,
             timer
         );
         Animations.fadeOut.call(document.getElementById("intro-page"));
