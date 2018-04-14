@@ -5,7 +5,7 @@ const VIEW = (function () {
     const selectDifficulty = document.querySelector(".difficulties");
     const playBtn = document.querySelector(".play");
 
-    let dif, cat, indexQuestion=0;
+    let dif, cat, questions, indexQuestion=0;
 
     //create option with categorys
     function categories() {
@@ -46,7 +46,7 @@ const VIEW = (function () {
         getDifficulty();
         playBtn.addEventListener("click", () => {
             CONTROLLER.getQuiz(dif, cat);
-            let questions = CONTROLLER.question;
+            questions = CONTROLLER.question;
             console.log(questions);
             render(questions, indexQuestion);
         });
