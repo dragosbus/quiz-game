@@ -3,16 +3,33 @@ const CONTROLLER = {
     question: [],
     indexQuestion: 0,
 
-    getQuiz(diff, cat) {
-        if (diff && cat) {
-            this.question = this.quiz.filter(q => q['difficulty'] === diff && q['category'] === cat);
-        } else {
-            while (this.question.length < 10) {
-                let random = Math.floor(Math.random() * this.quiz.length);
-                if (!this.question.includes(this.quiz[random])) {
-                    this.question.push(this.quiz[random]);
-                }
+    generateQuestions(quiz) {
+        //get dinamically 10 random questions, depend of category and difficulty
+        while (this.question.length < 10) {
+            let random = Math.floor(Math.random() * quiz.length);
+            if (!this.question.includes(quiz[random])) {
+                this.question.push(quiz[random]);
             }
+            //because is posible to be a category with less than 10 questions, add this condition for avoiding an infinite loop
+            if (quiz.length < 10 && this.question.length === quiz.length) {
+                break;
+            }
+        }
+    },
+
+    getQuiz(diff, cat) {
+        let aux = [];
+        if (diff && cat) {
+            aux = this.quiz.filter(q => q['difficulty'] === diff && q['category'] === cat);
+            this.generateQuestions(aux);
+        } else if (!diff && cat) {
+            aux = this.quiz.filter(q => q['category'] === cat);
+            this.generateQuestions(aux);
+        } else if (!cat && diff) {
+            aux = this.quiz.filter(q => q['difficulty'] === cat);
+            this.generateQuestions(aux);
+        } else {
+            this.generateQuestions(this.quiz);
         }
     },
 
