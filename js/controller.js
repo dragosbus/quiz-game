@@ -2,6 +2,7 @@ const CONTROLLER = {
     quiz: [].concat(data['easy']).concat(data['medium']).concat(data['hard']),
     question: [],
     indexQuestion: 0,
+    scorePlayer: 0,
 
     generateQuestions(quiz) {
         //get dinamically 10 random questions, depend of category and difficulty
@@ -44,6 +45,7 @@ const CONTROLLER = {
     },
 
     nextQuestion() {
+        clock.resetTimer();
         return ++this.indexQuestion;
     }
 
@@ -55,5 +57,8 @@ const clock = {
         if (difficulty === 'easy') this.timer = 10;
         else if (difficulty === 'medium') this.timer = 15;
         else this.timer = 20;
+    },
+    resetTimer() {
+        this.timer = 0;
     }
 }

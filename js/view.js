@@ -48,7 +48,6 @@ const VIEW = (function () {
         playBtn.addEventListener("click", () => {
             CONTROLLER.getQuiz(dif, cat);
             questions = CONTROLLER.question;
-            console.log(questions);
             render(questions, CONTROLLER.indexQuestion);
         });
     }
