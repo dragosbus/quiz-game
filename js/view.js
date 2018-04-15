@@ -62,29 +62,68 @@ const VIEW = (function () {
             questions[i].correct_answer,
             clock.timer
         );
-
         Animations.fadeOut.call(prevElement);
         setTimeout(() => {
             main.innerHTML = questionTemplate;
-            decrementTimer();
+            //start choose answer event
+            document.querySelector('.quiz ul').addEventListener('click', chooseAnswer);
             document.querySelector('.quiz ul').addEventListener('click', e => {
                 nextQuestion();
             });
-        }, 550);
+        }, 500);
+        setTimeout(decrementTimer, 1000);
     }
 
     function nextQuestion() {
         let quiz = document.querySelector('.quiz');
         let i = CONTROLLER.nextQuestion();
-        render(questions, i, prevElement = quiz);
+        setTimeout(() => render(questions, i, prevElement = quiz), 1000);
     }
 
     function decrementTimer() {
-        for (let i = 0; i < clock.timer; i++) {
+        // for (let i = 0; i < clock.timer; i++) {
+        //     setTimeout(() => {
+        //         document.querySelector('.time').textContent = clock.timer--;
+        //         if (clock.timer < 1) {
+        //             nextQuestion();
+        //         }
+        //     }, 1000 * i);
+        // }
+        let timer = setInterval(() => {
+            document.querySelector('.time').textContent = clock.timer--;
+            if (clock.timer < 1) {
+                clearInterval(timer);
+                clock.setTimer();
+                nextQuestion();
+            }
+        },1000);
+    }
+
+    function checkAnswer(choice, rightAnswer) {
+        CONTROLLER.checkAnswer(choice.textContent, rightAnswer, classTarget => {
+            choice.classList.add(classTarget);
             setTimeout(() => {
-                document.querySelector('.time').textContent = clock.timer--;
-                if (clock.timer < 1) nextQuestion();
-            }, 1000 * i);
+                choice.classList.remove(classTarget);
+            }, 1200);
+        });
+    }
+
+    function chooseAnswer(e) {
+        let t = e.target;
+        let {
+            question,
+            indexQuestion
+        } = CONTROLLER;
+        checkAnswer(t, question[indexQuestion].correct_answer);
+        
+        if (t.tagName === 'LI') {
+            nextQuestion();
+            //the player should not be able to click and answer, if he clicked once
+            document.querySelector('.quiz ul').removeEventListener("click", chooseAnswer);
+            //when the next question is shown, allow to player to choose an answer
+            setTimeout(() => {
+                document.querySelector('.quiz ul').addEventListener('click', chooseAnswer);
+            }, 1200);
         }
     }
 

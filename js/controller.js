@@ -45,8 +45,16 @@ const CONTROLLER = {
     },
 
     nextQuestion() {
-        clock.resetTimer();
         return ++this.indexQuestion;
+    },
+
+    checkAnswer(choose, right, fn) {
+        if (choose === right) {
+            this.scorePlayer += 1;
+            fn('right-answer');
+        } else {
+            fn('wrong-answer');
+        }
     }
 
 };
