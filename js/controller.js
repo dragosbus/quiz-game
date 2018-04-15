@@ -7,7 +7,12 @@ const CONTROLLER = {
         if (diff && cat) {
             this.question = this.quiz.filter(q => q['difficulty'] === diff && q['category'] === cat);
         } else {
-            this.question = this.quiz;
+            while (this.question.length < 10) {
+                let random = Math.floor(Math.random() * this.quiz.length);
+                if (!this.question.includes(this.quiz[random])) {
+                    this.question.push(this.quiz[random]);
+                }
+            }
         }
     },
 
