@@ -54,6 +54,7 @@ const VIEW = (function () {
 
     function render(questions, i, prevElement = intro) {
         clock.setTimer(questions[i].difficulty);
+        let infos = UI.infos(CONTROLLER.indexQuestion, questions);
         let questionTemplate = UI.quiz(
             questions[i].category,
             questions[i].question,
@@ -61,9 +62,11 @@ const VIEW = (function () {
             questions[i].correct_answer,
             clock.timer
         );
+        
         Animations.fadeOut.call(prevElement);
         setTimeout(() => {
             main.innerHTML = questionTemplate;
+            main.innerHTML +=infos;
             //start choose answer event
             document.querySelector('.quiz ul').addEventListener('click', chooseAnswer);
         }, 500);
@@ -79,7 +82,6 @@ const VIEW = (function () {
     function decrementTimer() {
         timer = setInterval(() => {
             document.querySelector('.time').textContent = clock.timer--;
-            console.log(clock.timer)
             if (clock.timer < 1) {
                 clearInterval(timer);
                 nextQuestion();
