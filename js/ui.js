@@ -23,7 +23,7 @@ const UI = (function () {
     }
 
     function gameEnd(countRightAnswers) {
-        let end = `<div class="end-game">
+        let end = `<div class="end-game slide-left-in">
     <p>You have ${countRightAnswers} right answers</p>
     <button class="new-game">New game</button>
     </div>`;

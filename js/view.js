@@ -55,20 +55,22 @@ const VIEW = (function () {
     function render(questions, i, prevElement = intro) {
         
         if(CONTROLLER.endGame()) {
+            Animations.fadeOut.call(document.querySelector('.quiz'));
             let endGame = UI.gameEnd(CONTROLLER.scorePlayer);
             setTimeout(()=>{
                 main.innerHTML = endGame;
-            },1000);
+            },500);
         } else {
             clock.setTimer(questions[i].difficulty);
             let infos = UI.infos(CONTROLLER.indexQuestion, questions);
+            
             let questionTemplate = UI.quiz(
             questions[i].category,
             questions[i].question,
             questions[i].incorrect_answers,
             questions[i].correct_answer,
             clock.timer
-        );
+            );
             
             Animations.fadeOut.call(prevElement);
             setTimeout(() => {
