@@ -6,7 +6,7 @@ const VIEW = (function () {
     const playBtn = document.querySelector(".play");
     const intro = document.getElementById("intro-page");
 
-    let dif, cat, questions;
+    let dif, cat, questions, timer;
 
     //create option with categorys
     function categories() {
@@ -54,7 +54,6 @@ const VIEW = (function () {
 
     function render(questions, i, prevElement = intro) {
         clock.setTimer(questions[i].difficulty);
-
         let questionTemplate = UI.quiz(
             questions[i].category,
             questions[i].question,
@@ -67,11 +66,8 @@ const VIEW = (function () {
             main.innerHTML = questionTemplate;
             //start choose answer event
             document.querySelector('.quiz ul').addEventListener('click', chooseAnswer);
-            document.querySelector('.quiz ul').addEventListener('click', e => {
-                nextQuestion();
-            });
         }, 500);
-        setTimeout(decrementTimer, 1000);
+        setTimeout(decrementTimer, 500);
     }
 
     function nextQuestion() {
@@ -81,19 +77,11 @@ const VIEW = (function () {
     }
 
     function decrementTimer() {
-        // for (let i = 0; i < clock.timer; i++) {
-        //     setTimeout(() => {
-        //         document.querySelector('.time').textContent = clock.timer--;
-        //         if (clock.timer < 1) {
-        //             nextQuestion();
-        //         }
-        //     }, 1000 * i);
-        // }
-        let timer = setInterval(() => {
+        timer = setInterval(() => {
             document.querySelector('.time').textContent = clock.timer--;
+            console.log(clock.timer)
             if (clock.timer < 1) {
                 clearInterval(timer);
-                clock.setTimer();
                 nextQuestion();
             }
         },1000);
@@ -118,6 +106,7 @@ const VIEW = (function () {
         
         if (t.tagName === 'LI') {
             nextQuestion();
+            clearInterval(timer);
             //the player should not be able to click and answer, if he clicked once
             document.querySelector('.quiz ul').removeEventListener("click", chooseAnswer);
             //when the next question is shown, allow to player to choose an answer
