@@ -7,6 +7,14 @@ const VIEW = (function () {
     const intro = document.getElementById("intro-page");
 
     let dif, cat, questions, timer;
+    
+    function init() {
+        dif = "";
+        cat = "";
+        questions = [];
+        categories();
+        playBtnEvent();
+    }
 
     //create option with categorys
     function categories() {
@@ -59,6 +67,9 @@ const VIEW = (function () {
             let endGame = UI.gameEnd(CONTROLLER.scorePlayer);
             setTimeout(()=>{
                 main.innerHTML = endGame;
+                document.querySelector(".new-game").addEventListener("click", () =>{
+                   main.innerHTML = UI.introPage();
+                });
             },500);
         } else {
             clock.setTimer(questions[i].difficulty);
@@ -128,8 +139,7 @@ const VIEW = (function () {
             }, 1200);
         }
     }
-
-    categories();
-    playBtnEvent();
+    
+    document.addEventListener("DOMContentLoaded", init);
 
 }());

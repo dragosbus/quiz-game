@@ -1,4 +1,5 @@
-.play {
+.play,
+.new-game{
   @extend %btn;
   margin: 10rem auto 0;
   background: linear-gradient(90deg, $color-blue, $light-blue);
@@ -9,4 +10,8 @@
   &:hover {
     background: linear-gradient(135deg, $color-blue, $violet-blue 90%);
   }
+}
+
+.new-game {
+  margin: 2rem auto 0;
 }

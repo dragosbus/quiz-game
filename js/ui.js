@@ -1,4 +1,48 @@
 const UI = (function () {
+    
+    function introPage() {
+        let intro = `<section id="intro-page">
+      <div class="card">
+        <h1>Start Quiz Game</h1>
+      </div>
+      <div class="categories">
+        <select class="categories--select">
+          <option value="all">Select a Category</option>
+        </select>
+      </div>
+      <div class="difficulties">
+        <ul class="checks">
+          <li>
+            <input type="radio" id="f-option" name="selector" value="easy">
+            <label for="f-option">Easy</label>
+
+            <div class="check"></div>
+          </li>
+
+          <li>
+            <input type="radio" id="s-option" name="selector" value="medium">
+            <label for="s-option">Medium</label>
+
+            <div class="check">
+              <div class="inside"></div>
+            </div>
+          </li>
+
+          <li>
+            <input type="radio" id="t-option" name="selector" value="hard">
+            <label for="t-option">Hard</label>
+
+            <div class="check">
+              <div class="inside"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <button class="btn play">Play</button>
+    </section>`;
+    
+    return intro;
+    }
 
     function quiz(category, question, answers, right, time) {
         let quiz = `<div class="quiz slide-left-in">
@@ -33,7 +77,8 @@ const UI = (function () {
     return {
         quiz,
         infos,
-        gameEnd
+        gameEnd,
+        introPage
     };
 }());
 
