@@ -47,6 +47,12 @@ const CONTROLLER = {
     nextQuestion() {
         return ++this.indexQuestion;
     },
+    
+    endGame() {
+        if(this.indexQuestion >= this.question.length) {
+            return true;
+        }
+    },
 
     checkAnswer(choose, right, fn) {
         if (choose === right) {
