@@ -7,8 +7,6 @@
         width: 30px;
         display: inline-block;
         background-color: rgba(2,2,2,0.5);
-        background-size: cover;
-        background-repeat: no-repeat;
         mask-image: url(../img/star.svg);
         animation-name: fade-in;
         animation-timing-function: cubic-bezier(.84,0,.07,.91);
@@ -24,9 +22,9 @@
         }
         
         &-on {
-            height: 35px;
-            width: 35px;
             background-color: orange;
+            transition: transform 5.75s cubic-bezier(.84,0,.07,.91);
+            transform: scale(1.1,1.1);
         }
         }
 }
