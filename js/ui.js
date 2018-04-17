@@ -100,9 +100,16 @@ const Animations = (function () {
     function fadeOut() {
         this.classList.add('fade-out');
     }
+    
+    function starOn(exclude, stars) {
+      for(let i = 1;i<=stars.length-exclude;i++) {
+        stars[i-1].classList.add("star-on");
+      }
+    }
     return {
         slideLeftIn,
         slideLeftOut,
-        fadeOut
+        fadeOut,
+        starOn
     };
 }());

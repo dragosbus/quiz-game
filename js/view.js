@@ -1,5 +1,7 @@
 const VIEW = (function () {
-
+    
+    document.addEventListener("DOMContentLoaded", init);
+    
     const main = document.querySelector('main');
     const selectCat = document.querySelector('.categories--select');
     const selectDifficulty = document.querySelector(".difficulties");
@@ -63,26 +65,12 @@ const VIEW = (function () {
     function render(questions, i, prevElement = intro) {
         
         if(CONTROLLER.endGame()) {
-            Animations.fadeOut.call(document.querySelector('.quiz'));
-            let endGame = UI.gameEnd(CONTROLLER.scorePlayer);
-            setTimeout(()=>{
-                main.innerHTML = endGame;
-                let playerScore = CONTROLLER.scorePlayer;
-                if(playerScore === 10) {
-                    document.querySelector(".star-1").classList.add("star-on");
-                    document.querySelector(".star-2").classList.add("star-on");
-                    document.querySelector(".star-3").classList.add("star-on");
-                } else if(playerScore >= 8) {
-                    document.querySelector(".star-1").classList.add("star-on");
-                    document.querySelector(".star-2").classList.add("star-on");
-                } else if(playerScore >= 5) {
-                    document.querySelector(".star-1").classList.add("star-on");
-                }
-                document.querySelector(".new-game").addEventListener("click", () =>{
-                   main.innerHTML = UI.introPage();
-                });
-            },500);
+            renderEndGame();
         } else {
+            renderQuiz();
+        }
+        
+        function renderQuiz() {
             clock.setTimer(questions[i].difficulty);
             let infos = UI.infos(CONTROLLER.indexQuestion, questions);
             let questionTemplate = UI.quiz(
@@ -101,6 +89,24 @@ const VIEW = (function () {
                 document.querySelector('.quiz ul').addEventListener('click', chooseAnswer);
             }, 500);
             setTimeout(decrementTimer, 500);
+        }
+        
+        function renderEndGame() {
+            Animations.fadeOut.call(document.querySelector('.quiz'));
+            let endGame = UI.gameEnd(CONTROLLER.scorePlayer);
+            setTimeout(()=>{
+                main.innerHTML = endGame;
+                let stars = document.querySelectorAll(".star");
+                
+                let playerScore = CONTROLLER.scorePlayer;
+                if(playerScore === 10) Animations.starOn(0, stars);
+                else if(playerScore >= 8) Animations.starOn(1, stars);
+                else if(playerScore >= 5)  Animations.starOn(2, stars);
+                
+                document.querySelector(".new-game").addEventListener("click", () =>{
+                   main.innerHTML = UI.introPage();
+                });
+            },500);
         }
 
     }
@@ -149,7 +155,6 @@ const VIEW = (function () {
             }, 1200);
         }
     }
-    
-    document.addEventListener("DOMContentLoaded", init);
+
 
 }());
