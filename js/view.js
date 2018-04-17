@@ -1,16 +1,21 @@
 const VIEW = (function () {
-    
+
     document.addEventListener("DOMContentLoaded", init);
-    
-    const main = document.querySelector('main');
-    const selectCat = document.querySelector('.categories--select');
-    const selectDifficulty = document.querySelector(".difficulties");
-    const playBtn = document.querySelector(".play");
-    const intro = document.getElementById("intro-page");
+
+    const DomElements = {
+        init() {
+            this.main = document.querySelector('main');
+            this.selectCat = document.querySelector('.categories--select');
+            this.selectDifficulty = document.querySelector(".difficulties");
+            this.playBtn = document.querySelector(".play");
+            this.intro = document.getElementById("intro-page");
+        }
+    };
 
     let dif, cat, questions, timer;
-    
+
     function init() {
+        DomElements.init();
         dif = "";
         cat = "";
         questions = [];
@@ -29,13 +34,12 @@ const VIEW = (function () {
             let selectOption = document.createElement('option');
             selectOption.value = cat;
             selectOption.textContent = cat;
-            selectCat.appendChild(selectOption);
+            DomElements.selectCat.appendChild(selectOption);
         }
-
     }
 
     function getCategory() {
-        selectCat.addEventListener('change', e => {
+        DomElements.selectCat.addEventListener('change', e => {
             let target = e.target;
             let value = target.value;
             cat = CONTROLLER.setCategoryVal(value);
@@ -43,7 +47,7 @@ const VIEW = (function () {
     }
 
     function getDifficulty() {
-        selectDifficulty.addEventListener('click', e => {
+        DomElements.selectDifficulty.addEventListener('click', e => {
             let target = e.target;
             if (target.tagName === 'LABEL') {
                 let value = target.textContent;
@@ -55,58 +59,60 @@ const VIEW = (function () {
     function playBtnEvent() {
         getCategory();
         getDifficulty();
-        playBtn.addEventListener("click", () => {
+        DomElements.playBtn.addEventListener("click", () => {
             CONTROLLER.getQuiz(dif, cat);
             questions = CONTROLLER.question;
             render(questions, CONTROLLER.indexQuestion);
         });
     }
 
-    function render(questions, i, prevElement = intro) {
-        
-        if(CONTROLLER.endGame()) {
+    function render(questions, i, prevElement = DomElements.intro) {
+
+        if (CONTROLLER.endGame()) {
             renderEndGame();
         } else {
             renderQuiz();
         }
-        
+
         function renderQuiz() {
             clock.setTimer(questions[i].difficulty);
             let infos = UI.infos(CONTROLLER.indexQuestion, questions);
             let questionTemplate = UI.quiz(
-            questions[i].category,
-            questions[i].question,
-            questions[i].incorrect_answers,
-            questions[i].correct_answer,
-            clock.timer
+                questions[i].category,
+                questions[i].question,
+                questions[i].incorrect_answers,
+                questions[i].correct_answer,
+                clock.timer
             );
-            
+
             Animations.fadeOut.call(prevElement);
             setTimeout(() => {
-                main.innerHTML = questionTemplate;
-                main.innerHTML +=infos;
+                DomElements.main.innerHTML = questionTemplate;
+                DomElements.main.innerHTML += infos;
                 //start choose answer event
                 document.querySelector('.quiz ul').addEventListener('click', chooseAnswer);
             }, 500);
             setTimeout(decrementTimer, 500);
         }
-        
+
         function renderEndGame() {
             Animations.fadeOut.call(document.querySelector('.quiz'));
             let endGame = UI.gameEnd(CONTROLLER.scorePlayer);
-            setTimeout(()=>{
-                main.innerHTML = endGame;
+            setTimeout(() => {
+                DomElements.main.innerHTML = endGame;
                 let stars = document.querySelectorAll(".star");
-                
+
                 let playerScore = CONTROLLER.scorePlayer;
-                if(playerScore === 10) Animations.starOn(0, stars);
-                else if(playerScore >= 8) Animations.starOn(1, stars);
-                else if(playerScore >= 5)  Animations.starOn(2, stars);
-                
-                document.querySelector(".new-game").addEventListener("click", () =>{
-                   main.innerHTML = UI.introPage();
+                if (playerScore === 10) Animations.starOn(0, stars);
+                else if (playerScore >= 8) Animations.starOn(1, stars);
+                else if (playerScore >= 5) Animations.starOn(2, stars);
+
+                document.querySelector(".new-game").addEventListener("click", () => {
+                    DomElements.main.innerHTML = UI.introPage();
+                    categories();
+                    playBtnEvent();
                 });
-            },500);
+            }, 500);
         }
 
     }
@@ -124,7 +130,7 @@ const VIEW = (function () {
                 clearInterval(timer);
                 nextQuestion();
             }
-        },1000);
+        }, 1000);
     }
 
     function checkAnswer(choice, rightAnswer) {
@@ -143,7 +149,7 @@ const VIEW = (function () {
             indexQuestion
         } = CONTROLLER;
         checkAnswer(t, question[indexQuestion].correct_answer);
-        
+
         if (t.tagName === 'LI') {
             nextQuestion();
             clearInterval(timer);

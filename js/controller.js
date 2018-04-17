@@ -47,9 +47,9 @@ const CONTROLLER = {
     nextQuestion() {
         return ++this.indexQuestion;
     },
-    
+
     endGame() {
-        if(this.indexQuestion >= this.question.length) {
+        if (this.indexQuestion >= this.question.length) {
             return true;
         }
     },
