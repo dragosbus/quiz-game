@@ -3,6 +3,7 @@ const CONTROLLER = {
     question: [],
     indexQuestion: 0,
     scorePlayer: 0,
+    gameEnded: false,
 
     generateQuestions(quiz) {
         //get dinamically 10 random questions, depend of category and difficulty
@@ -50,7 +51,7 @@ const CONTROLLER = {
 
     endGame() {
         if (this.indexQuestion >= this.question.length) {
-            return true;
+            this.gameEnded = true;
         }
     },
 

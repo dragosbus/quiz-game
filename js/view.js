@@ -15,6 +15,9 @@ const VIEW = (function () {
     let dif, cat, questions, timer;
 
     function init() {
+        CONTROLLER.gameEnded = false;
+        CONTROLLER.indexQuestion = 0;
+        CONTROLLER.playerScore = 0;
         DomElements.init();
         dif = "";
         cat = "";
@@ -67,8 +70,8 @@ const VIEW = (function () {
     }
 
     function render(questions, i, prevElement = DomElements.intro) {
-
-        if (CONTROLLER.endGame()) {
+        CONTROLLER.endGame();
+        if (CONTROLLER.gameEnded) {
             renderEndGame();
         } else {
             renderQuiz();
@@ -109,12 +112,10 @@ const VIEW = (function () {
 
                 document.querySelector(".new-game").addEventListener("click", () => {
                     DomElements.main.innerHTML = UI.introPage();
-                    categories();
-                    playBtnEvent();
+                    init();
                 });
             }, 500);
         }
-
     }
 
     function nextQuestion() {
