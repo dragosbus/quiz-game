@@ -25,6 +25,16 @@
   }
 }
 
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  
+  100% {
+    opacity: 1;
+  }
+}
+
 .slide-left-out {
   animation-name: slide-left-out;
   animation-duration: 0.55s;

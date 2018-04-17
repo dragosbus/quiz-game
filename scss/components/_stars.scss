@@ -1,0 +1,32 @@
+.wrap-stars {
+    width: 30%;
+    margin: 1rem auto;
+    
+    .star {
+        height: 30px;
+        width: 30px;
+        display: inline-block;
+        background-color: rgba(2,2,2,0.5);
+        background-size: cover;
+        background-repeat: no-repeat;
+        mask-image: url(../img/star.svg);
+        animation-name: fade-in;
+        animation-timing-function: cubic-bezier(.84,0,.07,.91);
+    
+        &-1 {
+          animation-duration: 2s;  
+        }
+        &-2 {
+          animation-duration: 2.7s;  
+        }
+        &-3 {
+          animation-duration: 3.25s;  
+        }
+        
+        &-on {
+            height: 35px;
+            width: 35px;
+            background-color: orange;
+        }
+        }
+}

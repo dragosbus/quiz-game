@@ -68,6 +68,11 @@ const UI = (function () {
 
     function gameEnd(countRightAnswers) {
         let end = `<div class="end-game slide-left-in">
+   <div class="wrap-stars">
+      <div class="star star-1"></div>
+      <div class="star star-2"></div>
+      <div class="star star-3"></div>
+   </div>
     <p>You have ${countRightAnswers} right answers</p>
     <button class="new-game">New game</button>
     </div>`;

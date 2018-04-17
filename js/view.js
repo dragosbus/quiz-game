@@ -67,6 +67,17 @@ const VIEW = (function () {
             let endGame = UI.gameEnd(CONTROLLER.scorePlayer);
             setTimeout(()=>{
                 main.innerHTML = endGame;
+                let playerScore = CONTROLLER.scorePlayer;
+                if(playerScore >= 5) {
+                    document.querySelector(".star-1").classList.add("star-on");
+                } else if(playerScore >= 8) {
+                    document.querySelector(".star-1").classList.add("star-on");
+                    document.querySelector(".star-2").classList.add("star-on");
+                } else if(playerScore === 10) {
+                    document.querySelector(".star-1").classList.add("star-on");
+                    document.querySelector(".star-2").classList.add("star-on");
+                    document.querySelector(".star-3").classList.add("star-on");
+                }
                 document.querySelector(".new-game").addEventListener("click", () =>{
                    main.innerHTML = UI.introPage();
                 });
@@ -74,7 +85,6 @@ const VIEW = (function () {
         } else {
             clock.setTimer(questions[i].difficulty);
             let infos = UI.infos(CONTROLLER.indexQuestion, questions);
-            
             let questionTemplate = UI.quiz(
             questions[i].category,
             questions[i].question,
